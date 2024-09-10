@@ -1,9 +1,15 @@
+using InventoryManager.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+var connectionString = builder.Configuration.GetConnectionString("InventoryDbConnection")
+                ?? throw new InvalidOperationException("db connection string wasn't found");
+builder.Services.AddInventoryDbContext(connectionString);
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
