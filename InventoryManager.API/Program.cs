@@ -5,9 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+// Infrastructure related services
 var connectionString = builder.Configuration.GetConnectionString("InventoryDbConnection")
                 ?? throw new InvalidOperationException("db connection string wasn't found");
 builder.Services.AddInventoryDbContext(connectionString);
+builder.Services.AddRepository();
 
 
 builder.Services.AddEndpointsApiExplorer();
