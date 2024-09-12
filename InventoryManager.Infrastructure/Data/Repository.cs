@@ -1,9 +1,10 @@
+using InventoryManager.Core.Entities;
 using InventoryManager.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManager.Infrastructure.Data;
 
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, ITrackable
 {
     private readonly ApplicationDbContext _context;
     private readonly DbSet<TEntity> _entity;
@@ -26,8 +27,8 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     public async Task<IEnumerable<TEntity>> GetAllAsync() =>
         await _entity.ToListAsync();
 
-    public async Task<TEntity?> GetByIdAsync(int id) =>
-        await _entity.FindAsync(id);
+    public async Task<TEntity?> GetByTrackingNumberAsync(Guid trackingNumber) =>
+        await _entity.FirstOrDefaultAsync(e => e.TrackingNumber == trackingNumber);
 
     public async Task UpdateAsync(TEntity entity)
     {
