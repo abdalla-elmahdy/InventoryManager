@@ -7,14 +7,14 @@ namespace InventoryManager.API.Controllers;
 
 [ApiController]
 [Route("api/categories")]
-public class CategoriesController(IService<CreateCategoryDto, Category> service)
+public class CategoriesController(IService<CategoryOperationsDto, Category> service)
 : ControllerBase
 {
-    private readonly IService<CreateCategoryDto, Category> _service = service;
+    private readonly IService<CategoryOperationsDto, Category> _service = service;
 
     [HttpPost("create")]
     public async Task<ActionResult<CategoryDto>> CreateAsync(
-        [FromBody] CreateCategoryDto dto
+        [FromBody] CategoryOperationsDto dto
         )
     {
         if (dto == null)
@@ -39,5 +39,22 @@ public class CategoriesController(IService<CreateCategoryDto, Category> service)
             return NotFound();
 
         return Ok(new CategoryDto(category));
+    }
+
+    [HttpPut("{trackingNumber}")]
+    public async Task<ActionResult> UpdateAsync(
+        [FromRoute] Guid trackingNumber,
+        [FromBody] CategoryOperationsDto dto
+    )
+    {
+        if (dto == null)
+            return BadRequest();
+
+        var category = await _service.ReadByTrackingNumberAsync(trackingNumber);
+        if (category == null)
+            return NotFound();
+
+        await _service.UpdateAsync(category, dto);
+        return NoContent();
     }
 }

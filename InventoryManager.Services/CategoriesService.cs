@@ -7,7 +7,7 @@ namespace InventoryManager.Services;
 public class CategoriesService<TRequestDto, TEntity>(IRepository<Category> repository)
 : IService<TRequestDto, TEntity>
   where TEntity : Category
-  where TRequestDto : CreateCategoryDto
+  where TRequestDto : CategoryOperationsDto
 {
     private readonly IRepository<Category> _repository = repository;
     public async Task<TEntity> CreateAsync(TRequestDto requestDto)
@@ -32,10 +32,13 @@ public class CategoriesService<TRequestDto, TEntity>(IRepository<Category> repos
     public async Task<TEntity?> ReadByTrackingNumberAsync(Guid trackingNumber) =>
         (TEntity?)await _repository.GetByTrackingNumberAsync(trackingNumber);
 
-    public Task UpdateAsync(Guid trackingNumber, TRequestDto requestDto)
+    public async Task UpdateAsync(TEntity entity, TRequestDto requestDto)
     {
-        throw new NotImplementedException();
+        entity.Name = requestDto.Name;
+        entity.Description = requestDto.Description;
+        await _repository.UpdateAsync(entity);
     }
+
     public Task DeleteAsync(Guid trackingNumber)
     {
         throw new NotImplementedException();

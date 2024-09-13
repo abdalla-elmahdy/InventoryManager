@@ -9,6 +9,6 @@ namespace InventoryManager.Services;
 public static class ServicesRegistrations
 {
     public static void AddCategoriesService(this IServiceCollection services) =>
-        services.AddScoped(typeof(IService<CreateCategoryDto, Category>),
-                            typeof(CategoriesService<CreateCategoryDto, Category>));
+        services.AddScoped(typeof(IService<CategoryOperationsDto, Category>),
+                            typeof(CategoriesService<CategoryOperationsDto, Category>));
 }

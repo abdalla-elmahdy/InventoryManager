@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using InventoryManager.Core.Entities;
 
 namespace InventoryManager.Shared.Contracts.Categories;
 
-public record CreateCategoryDto
+public record CategoryOperationsDto
 {
     [Required(ErrorMessage = "Name field is required")]
     [MaxLength(50, ErrorMessage = "Name must be under 50 chars")]
