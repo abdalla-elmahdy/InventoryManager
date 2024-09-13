@@ -23,4 +23,21 @@ public class CategoriesController(IService<CreateCategoryDto, Category> service)
         var oResult = await _service.CreateAsync(dto);
         return Ok(new CategoryDto(oResult));
     }
+
+    [HttpGet("")]
+    public async Task<ActionResult<IEnumerable<CategoryDto>>> ReadAllAsync()
+    {
+        var categories = await _service.ReadAllAsync();
+        return Ok(categories.Select(c => new CategoryDto(c)));
+    }
+
+    [HttpGet("{trackingNumber}")]
+    public async Task<ActionResult<CategoryDto>> ReadAsync([FromRoute] Guid trackingNumber)
+    {
+        var category = await _service.ReadByTrackingNumberAsync(trackingNumber);
+        if (category == null)
+            return NotFound();
+
+        return Ok(new CategoryDto(category));
+    }
 }

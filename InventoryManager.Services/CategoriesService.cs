@@ -25,22 +25,18 @@ public class CategoriesService<TRequestDto, TEntity>(IRepository<Category> repos
         return (TEntity)oResult;
     }
 
-    public Task DeleteAsync(Guid trackingNumber)
-    {
-        throw new NotImplementedException();
-    }
 
-    public Task<IEnumerable<TEntity>> ReadAllAsync()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<TEntity>> ReadAllAsync() =>
+        (IEnumerable<TEntity>)await _repository.GetAllAsync();
 
-    public Task<TEntity> ReadByTrackingNumberAsync(Guid trackingNumber)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<TEntity?> ReadByTrackingNumberAsync(Guid trackingNumber) =>
+        (TEntity?)await _repository.GetByTrackingNumberAsync(trackingNumber);
 
     public Task UpdateAsync(Guid trackingNumber, TRequestDto requestDto)
+    {
+        throw new NotImplementedException();
+    }
+    public Task DeleteAsync(Guid trackingNumber)
     {
         throw new NotImplementedException();
     }

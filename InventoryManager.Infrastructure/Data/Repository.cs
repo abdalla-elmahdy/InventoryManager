@@ -25,7 +25,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
 
 
     public async Task<IEnumerable<TEntity>> GetAllAsync() =>
-        await _entity.ToListAsync();
+        await _entity.AsNoTracking().ToListAsync();
 
     public async Task<TEntity?> GetByTrackingNumberAsync(Guid trackingNumber) =>
         await _entity.FirstOrDefaultAsync(e => e.TrackingNumber == trackingNumber);
