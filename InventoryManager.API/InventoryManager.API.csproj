@@ -20,6 +20,8 @@
   <ItemGroup>
     <ProjectReference Include="..\InventoryManager.Core\InventoryManager.Core.csproj" />
     <ProjectReference Include="..\InventoryManager.Infrastructure\InventoryManager.Infrastructure.csproj" />
+    <ProjectReference Include="..\InventoryManager.Shared\InventoryManager.Shared.csproj" />
+    <ProjectReference Include="..\InventoryManager.Services\InventoryManager.Services.csproj" />
   </ItemGroup>
 
 </Project>

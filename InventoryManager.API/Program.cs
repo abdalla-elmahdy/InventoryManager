@@ -1,4 +1,5 @@
 using InventoryManager.Infrastructure;
+using InventoryManager.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +12,8 @@ var connectionString = builder.Configuration.GetConnectionString("InventoryDbCon
 builder.Services.AddInventoryDbContext(connectionString);
 builder.Services.AddRepository();
 
+// Entities services
+builder.Services.AddCategoriesService();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
