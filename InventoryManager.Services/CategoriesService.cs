@@ -39,8 +39,6 @@ public class CategoriesService<TRequestDto, TEntity>(IRepository<Category> repos
         await _repository.UpdateAsync(entity);
     }
 
-    public Task DeleteAsync(Guid trackingNumber)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task DeleteAsync(TEntity entity) =>
+        await _repository.DeleteAsync(entity);
 }

@@ -57,4 +57,15 @@ public class CategoriesController(IService<CategoryOperationsDto, Category> serv
         await _service.UpdateAsync(category, dto);
         return NoContent();
     }
+
+    [HttpDelete("{trackingNumber}")]
+    public async Task<ActionResult> DeleteAsync(Guid trackingNumber)
+    {
+        var category = await _service.ReadByTrackingNumberAsync(trackingNumber);
+        if (category == null)
+            return NotFound();
+
+        await _service.DeleteAsync(category);
+        return NoContent();
+    }
 }
