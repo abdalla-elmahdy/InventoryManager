@@ -4,7 +4,6 @@ namespace InventoryManager.Shared.Contracts.Inventories;
 
 public class InventoryDto
 {
-    public int Id { get; set; }
     public Guid TrackingNumber { get; set; }
     public string Name { get; set; } = string.Empty;
     public int Quantity { get; set; }
@@ -16,7 +15,6 @@ public class InventoryDto
 
     public InventoryDto(Inventory inventory)
     {
-        Id = inventory.Id;
         TrackingNumber = inventory.TrackingNumber;
         Name = inventory.Name;
         Quantity = inventory.Quantity;
