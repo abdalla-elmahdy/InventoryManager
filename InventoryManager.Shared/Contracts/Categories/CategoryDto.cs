@@ -8,7 +8,6 @@ namespace InventoryManager.Shared.Contracts.Categories;
 
 public class CategoryDto
 {
-    public int Id { get; set; }
     public Guid TrackingNumber { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
@@ -17,7 +16,6 @@ public class CategoryDto
 
     public CategoryDto(Category category)
     {
-        Id = category.Id;
         TrackingNumber = category.TrackingNumber;
         Name = category.Name;
         Description = category.Description;

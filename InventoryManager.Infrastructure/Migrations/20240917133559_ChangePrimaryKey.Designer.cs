@@ -4,6 +4,7 @@ using InventoryManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240917133559_ChangePrimaryKey")]
+    partial class ChangePrimaryKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,8 +141,14 @@ namespace InventoryManager.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("ModifiedOn")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("OrderTrackingNumber")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("ProductTrackingNumber")
                         .HasColumnType("uniqueidentifier");
@@ -165,6 +174,9 @@ namespace InventoryManager.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("CategoryTrackingNumber")
                         .HasColumnType("uniqueidentifier");
 
@@ -178,6 +190,9 @@ namespace InventoryManager.Infrastructure.Migrations
 
                     b.Property<float>("Height")
                         .HasColumnType("real");
+
+                    b.Property<int>("InventoryId")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("InventoryTrackingNumber")
                         .HasColumnType("uniqueidentifier");
@@ -281,7 +296,7 @@ namespace InventoryManager.Infrastructure.Migrations
             modelBuilder.Entity("InventoryManager.Core.Entities.Product", b =>
                 {
                     b.HasOne("InventoryManager.Core.Entities.Category", "Category")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CategoryTrackingNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -306,11 +321,6 @@ namespace InventoryManager.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("InventoryManager.Core.Entities.Category", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("InventoryManager.Core.Entities.Inventory", b =>
