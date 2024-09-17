@@ -12,7 +12,7 @@ public class CategoriesController(IService<CategoryOperationsDto, Category> serv
 {
     private readonly IService<CategoryOperationsDto, Category> _service = service;
 
-    [HttpPost("create")]
+    [HttpPost("")]
     public async Task<ActionResult<CategoryDto>> CreateAsync(
         [FromBody] CategoryOperationsDto dto
         )

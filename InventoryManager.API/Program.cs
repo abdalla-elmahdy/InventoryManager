@@ -14,6 +14,7 @@ builder.Services.AddRepository();
 
 // Entities services
 builder.Services.AddCategoriesService();
+builder.Services.AddInventoriesService();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
