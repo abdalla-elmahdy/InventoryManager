@@ -13,8 +13,7 @@ builder.Services.AddInventoryDbContext(connectionString);
 builder.Services.AddRepository();
 
 // Entities services
-builder.Services.AddCategoriesService();
-builder.Services.AddInventoriesService();
+builder.Services.AddEntitiesServices();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
