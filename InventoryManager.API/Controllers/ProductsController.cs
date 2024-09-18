@@ -16,9 +16,17 @@ public class ProductsController(IService<ProductOperationsDto, Product> service)
     {
         if (dto == null)
             return BadRequest();
+        try
+        {
 
-        var oResult = await _service.CreateAsync(dto);
-        return Ok(new ProductDto(oResult));
+            var oResult = await _service.CreateAsync(dto);
+            return Ok(new ProductDto(oResult));
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+
     }
 
     [HttpGet("")]
@@ -35,6 +43,40 @@ public class ProductsController(IService<ProductOperationsDto, Product> service)
         if (product == null)
             return NotFound();
         return Ok(new ProductDto(product));
+    }
+
+    [HttpPut("{trackingNumber}")]
+    public async Task<ActionResult> UpdateAsync(
+        [FromRoute] Guid trackingNumber,
+        [FromBody] ProductOperationsDto dto
+    )
+    {
+        if (dto == null)
+            return BadRequest();
+        var product = await _service.ReadByTrackingNumberAsync(trackingNumber);
+        if (product == null)
+            return NotFound("product doesn't exist");
+
+        try
+        {
+            await _service.UpdateAsync(product, dto);
+            return NoContent();
+        }
+        catch (NotFoundException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
+    [HttpDelete("{trackingNumber}")]
+    public async Task<ActionResult> DeleteAsync([FromRoute] Guid trackingNumber)
+    {
+        var product = await _service.ReadByTrackingNumberAsync(trackingNumber);
+        if (product == null)
+            return NotFound("product doesn't exist");
+
+        await _service.DeleteAsync(product);
+        return NoContent();
     }
 
 }
