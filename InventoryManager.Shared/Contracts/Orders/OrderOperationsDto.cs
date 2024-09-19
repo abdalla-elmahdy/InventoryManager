@@ -4,6 +4,7 @@ namespace InventoryManager.Shared.Contracts.Orders;
 
 public class OrderOperationsDto
 {
+    [Required]
     public required string Supplier { get; set; }
     [Required]
     public decimal TotalAmount { get; set; }
