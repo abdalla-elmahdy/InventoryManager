@@ -11,6 +11,4 @@ public class Order : BaseEntity
     public DateTimeOffset ReceivedDate { get; set; }
 
     public List<OrderItem> OrderItems { get; set; } = new();
-
-    public List<Transaction> Transactions { get; set; } = new();
 }
